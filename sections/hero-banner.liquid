@@ -1,0 +1,115 @@
+<div class="velaBannerText">
+    <div class="container">
+        <div class="inner-banner-image">
+        <div class="inner-banner-text">
+            <h3 class="inner-banner-title">{{ section.settings.title }}</h3>
+          	{%- if section.settings.copy != blank -%}
+          	<p class="inner-banner-copy">{{ section.settings.copy }}</p>
+          {%- endif -%}
+            {%- if section.settings.cta-title != blank -%}
+                <div class="inner-banner-cta-wrapper">
+                    <a class="inner-banner-cta" href="{{ section.settings.cta-url }}" title="{{ section.settings.cta-title }}">{{ section.settings.cta-title }}</a>
+                </div>
+            {%- endif -%}
+        </div>
+      	</div>
+    </div>
+</div>
+
+{% assign textColor = section.settings.color-text %}
+
+<style type="text/css">
+  .inner-banner-copy {
+    font-family: 'Roboto';
+    font-weight: 300;
+  }
+
+  .inner-banner-title {
+    font-family: 'Roboto';
+    font-weight: 700;
+  }
+  .inner-banner-text {
+    {%- if section.settings.text-alignment == 'left' -%}
+    display: inline-block;
+    {%- endif -%}
+    {%- if section.settings.text-alignment == 'center' -%}
+    display: block;
+    text-align: center;
+    {%- endif -%}
+    {%- if section.settings.text-alignment == 'right' -%}
+    display: block;
+    margin-right: 0;
+    {%- endif -%}
+   
+  }
+  .inner-banner-title, .inner-banner-copy {
+    color: {{ textColor }};
+  }
+  .inner-banner-image {
+    background-image: url('{{ section.settings.banner | img_url: 'master' }}');
+  }
+  @media (max-width: 768px) {
+    .inner-banner-image {
+      background-image: url('{{ section.settings.mobile-banner | img_url: 'master' }}');
+        }
+    }
+</style>
+{% schema %}
+    {
+        "name": "BVA Hero Banner",
+        "class": "bva-hero-banner",
+        "settings":[
+            {
+                "type": "header",
+                "content": "Hero Banner Section"
+            },
+            {
+                "type": "image_picker",
+                "id": "banner",
+                "label": "Image"
+            },
+            {
+                "type": "image_picker",
+                "id": "mobile-banner",
+                "label": "Mobile Image"
+            },
+            {
+                "type": "color",
+                "id": "color-text",
+                "label": "Color Picker",
+                "default": "rgba(0,0,0,0)"
+            },
+            {
+               "type": "select",
+               "id": "text-alignment",
+               "label": "Text alignment",
+               "options": [
+                  { "value": "left", "label": "Left"},
+                  { "value": "right", "label": "Right"},
+                  { "value": "center", "label": "Center"}
+               ]
+
+            },
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Title"
+            },
+            {
+                "type": "textarea",
+                "id": "copy",
+                "label": "Copy"
+            },
+            {
+                "type": "text",
+                "id": "cta-title",
+                "label": "CTA Title"
+            },
+            {
+                "type": "url",
+                "id": "cta-url",
+                "label": "CTA URL"
+            }
+        ]
+    }
+{% endschema %}
